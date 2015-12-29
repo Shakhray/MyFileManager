@@ -18,7 +18,7 @@ public class AppController {
 
     public void startProcess(String filePath, String openFile) throws IOException, InterruptedException {
         ProcessBuilder procBuilder = openFile.isEmpty()
-                ? new ProcessBuilder(filePath)//ololo
+                ? new ProcessBuilder(filePath)
                 : new ProcessBuilder(filePath, openFile);
         procBuilder.redirectErrorStream(true);
         procBuilder.start();
