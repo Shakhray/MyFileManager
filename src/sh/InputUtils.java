@@ -3,7 +3,7 @@ package sh;
 import javafx.util.Pair;
 
 /**
- * Created by Шерхан on 24.12.2015.
+ * @author Sherhan
  */
 public class InputUtils {
     public static final String EMPTY = "";
@@ -22,6 +22,10 @@ public class InputUtils {
         } else {
             return EMPTY;
         }
+    }
+
+    public static String[] splitArgs(String arguments) {
+        return arguments.split(" ");
     }
 
     private static boolean hasArguments(String input) {

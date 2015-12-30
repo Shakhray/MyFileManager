@@ -1,9 +1,9 @@
-package sh;
+package sh.console;
 
 import java.util.List;
 
 /**
- * Created by Шерхан on 24.12.2015.
+ * @author Sherhan
  */
 public class Viewer {
     public void print(List<String> values) {
