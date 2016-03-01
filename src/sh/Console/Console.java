@@ -87,6 +87,8 @@ public class Console {
             viewer.println(IS_NOT_A_DIR);
         } catch (DiskNotFoundException e) {
             viewer.println(DISK_NOT_FOUND);
+        } catch (InvalidedLinkException e) {
+            viewer.println(INVALIDED_LINK);
         }
     }
 

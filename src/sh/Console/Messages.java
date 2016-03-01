@@ -13,4 +13,5 @@ public final class Messages {
     public static final String DISK_NOT_FOUND = "Disk driver not found";
     public static final String COPY_ERROR = "error during copying";
     public static final String FILE_ALREADY_EXISTS = "file already exists";
+    public static final String INVALIDED_LINK = "invalided link";
 }

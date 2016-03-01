@@ -1,12 +1,17 @@
 package sh.controllers;
 
+import sh.desktop.WindowsShortcut;
 import sh.exceptions.DiskNotFoundException;
 import sh.exceptions.FileNotFoundException;
+import sh.exceptions.InvalidedLinkException;
 import sh.exceptions.IsNotDirException;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -22,7 +27,7 @@ public class DirController {
     }
 
     public File cd(File homeDir, String targetDir)
-            throws FileNotFoundException, IsNotDirException, DiskNotFoundException {
+            throws FileNotFoundException, IsNotDirException, DiskNotFoundException, InvalidedLinkException {
         if (isDiskDriver(targetDir)) {
             return changeDisk(targetDir);
         } else if (isParentDir(targetDir)) {
@@ -53,7 +58,7 @@ public class DirController {
         return homeDir.getParentFile() == null ? homeDir : homeDir.getParentFile();
     }
 
-    private File childDir(File homeDir, String targetDir) throws IsNotDirException, FileNotFoundException {
+    private File childDir(File homeDir, String targetDir) throws IsNotDirException, FileNotFoundException, InvalidedLinkException {
         File childDir = findChild(homeDir, targetDir);
         if (childDir == null) {
             throw new FileNotFoundException();
@@ -62,11 +67,18 @@ public class DirController {
         }
     }
 
-    private File findChild(File homeDir, String targetDir) throws IsNotDirException {
+    private File findChild(File homeDir, String targetDir) throws IsNotDirException, InvalidedLinkException {
         for (File dir : homeDir.listFiles()) {
             if (targetDir.equals(dir.getName())) {
                 if (dir.isDirectory()) {
                     return dir;
+                } else if (targetDir.endsWith(".lnk")) {
+                    try {
+                        WindowsShortcut shortcut = new WindowsShortcut(dir);
+                        return shortcut.getRealFile();
+                    } catch (IOException | ParseException e) {
+                        throw new InvalidedLinkException();
+                    }
                 } else {
                     throw new IsNotDirException();
                 }

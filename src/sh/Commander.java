@@ -3,9 +3,9 @@ package sh;
 import sh.controllers.AppController;
 import sh.controllers.DirController;
 import sh.exceptions.*;
-import sh.exceptions.FileNotFoundException;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -25,7 +25,7 @@ public class Commander {
         return home;
     }
 
-    public void cd(String arguments) throws FileNotFoundException, IsNotDirException, DiskNotFoundException {
+    public void cd(String arguments) throws FileNotFoundException, IsNotDirException, DiskNotFoundException, InvalidedLinkException {
         home = dirController.cd(home, arguments);
     }
 
@@ -95,7 +95,7 @@ public class Commander {
         return path.lastIndexOf("/") == path.length() - 1 || path.lastIndexOf("\\") == path.length() - 1;
     }
 
-    private boolean isApplication(String command) {
+    public boolean isApplication(String command) {
         return command.length() > 4 && ".exe".equals(command.substring(command.length() - 4, command.length()));
     }
 
@@ -118,7 +118,7 @@ public class Commander {
         if (!new File(copyTo).isDirectory()) {
             throw new DirNotFoundException();
         } else {
-            return hasEndSlash(copyTo) ? new File(copyTo + fileName) : new File(copyTo + "\\" + fileName) ;
+            return hasEndSlash(copyTo) ? new File(copyTo + fileName) : new File(copyTo + "\\" + fileName);
         }
     }
 }
