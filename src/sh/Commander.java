@@ -85,18 +85,15 @@ public class Commander {
 
     private String getHomePath() {
         String path = home.getAbsolutePath();
-        if (!hasEndSlash(path)) {
-            path += "/";
-        }
-        return path;
+        return hasEndSlash(path) ? path : path + "/";
     }
 
     private boolean hasEndSlash(String path) {
-        return path.lastIndexOf("/") == path.length() - 1 || path.lastIndexOf("\\") == path.length() - 1;
+        return path.endsWith("/") || path.endsWith("\\");
     }
 
     public boolean isApplication(String command) {
-        return command.length() > 4 && ".exe".equals(command.substring(command.length() - 4, command.length()));
+        return command.length() > 4 && command.endsWith(".exe");
     }
 
     public void copy(String source, String copyTo) throws IOException, DirNotFoundException, FileNotFoundException {

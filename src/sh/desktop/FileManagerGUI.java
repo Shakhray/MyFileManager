@@ -31,6 +31,8 @@ public class FileManagerGUI extends Application {
             BorderPane rootLayout = loader.load();
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
+            RootLayoutController controller = loader.getController();
+            controller.setStage(primaryStage);
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
