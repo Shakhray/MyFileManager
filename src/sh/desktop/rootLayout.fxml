@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8"
-            fx:controller="sh.desktop.RootLayoutController">
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sh.desktop.RootLayoutController">
     <center>
 
     </center>
     <top>
         <AnchorPane prefHeight="27.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
-                <MenuBar prefHeight="28.0" prefWidth="600.0" AnchorPane.bottomAnchor="-16.0" AnchorPane.leftAnchor="0.0"
-                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <MenuBar prefHeight="28.0" prefWidth="600.0" AnchorPane.bottomAnchor="-16.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <menus>
                         <Menu mnemonicParsing="false" text="Файл">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Выход"/>
+                                <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Выход" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Правка">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Delete"/>
+                                <MenuItem mnemonicParsing="false" text="Delete" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Помощь">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="О программе"/>
+                                <MenuItem mnemonicParsing="false" text="О программе" />
                             </items>
                         </Menu>
                     </menus>
@@ -35,12 +35,25 @@
         </AnchorPane>
     </top>
     <center>
-        <SplitPane dividerPositions="0.4899665551839465" prefHeight="160.0" prefWidth="200.0"
-                   BorderPane.alignment="CENTER">
+        <SplitPane dividerPositions="0.4899665551839465" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <items>
-                <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0"/>
-                <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0"/>
+                <AnchorPane fx:id="leftPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+                <AnchorPane fx:id="rightPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
             </items>
         </SplitPane>
     </center>
+   <bottom>
+      <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <items>
+          <Button mnemonicParsing="false" prefWidth="104.0" text="Копировать" />
+            <Button mnemonicParsing="false" prefWidth="104.0" text="Переместить" />
+            <Button mnemonicParsing="false" prefWidth="104.0" text="Удалить" />
+            <Button mnemonicParsing="false" text="Переименовать" />
+            <Button mnemonicParsing="false" prefWidth="104.0" text="Новая папка" />
+        </items>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </ToolBar>
+   </bottom>
 </BorderPane>

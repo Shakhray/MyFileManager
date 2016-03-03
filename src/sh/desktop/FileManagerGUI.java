@@ -1,4 +1,6 @@
-package sh.desktop;/**
+package sh.desktop;
+
+/**
  * @author Sherhan
  */
 
@@ -43,27 +45,28 @@ public class FileManagerGUI extends Application {
     }
 
     private void showLeftFileTree() {
-        showFileTree("leftFileTree.fxml");
+        rootLayoutController.getLeftPane().getChildren().add(loadFileTree("leftFileTree.fxml"));
     }
 
     private void showRightFileTree() {
-        showFileTree("rightFileTree.fxml");
+        rootLayoutController.getRightPane().getChildren().add(loadFileTree("rightFileTree.fxml"));
     }
 
-    private void showFileTree(String xmlName) {
+    private AnchorPane loadFileTree(String xmlName) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(FileManagerGUI.class.getResource(xmlName));
+        AnchorPane fileTree = null;
         try {
-            AnchorPane fileTree = loader.load();
+            fileTree = loader.load();
             FileTreeController controller = loader.getController();
             controller.setStage(primaryStage);
             AnchorPane.setBottomAnchor(fileTree, 0.0);
             AnchorPane.setTopAnchor(fileTree, 0.0);
             AnchorPane.setLeftAnchor(fileTree, 0.0);
             AnchorPane.setRightAnchor(fileTree, 0.0);
-            rootLayoutController.getRightPane().getChildren().add(fileTree);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return fileTree;
     }
 }
