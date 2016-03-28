@@ -11,6 +11,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sh.exceptions.*;
 
+import java.io.File;
+
 /**
  * @author Sherhan
  */
@@ -23,7 +25,7 @@ public class FileTreeController {
     protected TableColumn<FileTableItem, VBox> fileIcon;
     @FXML
     protected ToolBar buttonPane;
-    GUICommander commander = new GUICommander();
+    private GUICommander commander = new GUICommander();
     private Stage stage;
     private Message message = new Message(stage);
 
@@ -87,9 +89,9 @@ public class FileTreeController {
     }
 
     private void addChangeDiskButtons() {
-        for (String diskName : commander.getDisks()) {
+        for (File disk : commander.getDisks()) {
             Button button = new Button();
-            button.setText(diskName);
+            button.setText(disk.getPath());
             button.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
                 String path = button.getText();
                 try {

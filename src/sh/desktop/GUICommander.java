@@ -22,26 +22,24 @@ import java.util.stream.Collectors;
 public class GUICommander extends Commander {
     public ObservableList<FileTableItem> getDir() {
         ObservableList<FileTableItem> directories = FXCollections.observableArrayList();
-        directories.addAll(super.dir().stream().map(this::createFileTableItem).collect(Collectors.toList()));
         if (getHomeDirectory().getParent() != null) {
-            directories.add(0, createFileTableItem(".."));
+            directories.add(createRootFileTableItem());
         }
+        directories.addAll(super.dir().stream().map(this::createFileTableItem).collect(Collectors.toList()));
         return directories;
     }
 
-    private FileTableItem createFileTableItem(String fileName) {
-        String path;
-        if (getHomeDirectory().getPath().charAt(getHomeDirectory().getPath().length() - 1) == '\\') {
-            path = getHomeDirectory().getPath() + fileName;
-        } else {
-            path = getHomeDirectory().getPath() + "\\" + fileName;
-        }
-        WritableImage icon = getIcon(path);
-        return new FileTableItem(fileName, icon);
+    private FileTableItem createFileTableItem(File file) {
+        WritableImage icon = getIcon(file);
+        return new FileTableItem(file.getName(), icon);
     }
 
-    private WritableImage getIcon(String fileName) {
-        File file = new File(fileName);
+    private FileTableItem createRootFileTableItem() {
+        WritableImage icon = getIcon(getHomeDirectory());
+        return new FileTableItem("..", icon);
+    }
+
+    private WritableImage getIcon(File file) {
         ImageIcon icon = (ImageIcon) FileSystemView.getFileSystemView().getSystemIcon(file);
         if (icon != null) {
             java.awt.Image awtImage = icon.getImage();
@@ -60,12 +58,12 @@ public class GUICommander extends Commander {
         }
     }
 
-    public List<String> getDisks() {
-        List<String> disks = new LinkedList<>();
+    public List<File> getDisks() {
+        List<File> disks = new LinkedList<>();
         for (char word = 'A'; word <= 'Z'; word++) {
             File disk = new File(word + ":\\");
             if (Files.exists(disk.toPath())) {
-                disks.add(disk.getPath());
+                disks.add(disk);
             }
         }
         return disks;

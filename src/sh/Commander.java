@@ -29,7 +29,7 @@ public class Commander {
         home = dirController.cd(home, arguments);
     }
 
-    public List<String> dir() {
+    public List<File> dir() {
         return dirController.dir(home);
     }
 

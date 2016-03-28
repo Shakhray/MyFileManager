@@ -12,6 +12,7 @@ import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -22,8 +23,8 @@ import java.util.regex.Pattern;
 public class DirController {
     private final static String DOUBLE_DOT = "..";
 
-    public List<String> dir(File directory) {
-        return Arrays.asList(directory.list());
+    public List<File> dir(File directory) {
+        return Arrays.asList(directory.listFiles());
     }
 
     public File cd(File homeDir, String targetDir)
