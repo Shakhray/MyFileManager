@@ -49,7 +49,7 @@
             <Button mnemonicParsing="false" prefWidth="104.0" text="Переместить" />
             <Button mnemonicParsing="false" prefWidth="104.0" text="Удалить" />
             <Button mnemonicParsing="false" text="Переименовать" />
-            <Button mnemonicParsing="false" prefWidth="104.0" text="Новая папка" />
+            <Button mnemonicParsing="false" onAction="#handleCreateFolder" prefWidth="104.0" text="Новая папка" />
         </items>
          <BorderPane.margin>
             <Insets />

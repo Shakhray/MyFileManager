@@ -11,7 +11,6 @@ import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.nio.file.Files;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -62,9 +61,7 @@ public class GUICommander extends Commander {
         List<File> disks = new LinkedList<>();
         for (char word = 'A'; word <= 'Z'; word++) {
             File disk = new File(word + ":\\");
-            if (Files.exists(disk.toPath())) {
-                disks.add(disk);
-            }
+            if (disk.exists()) disks.add(disk);
         }
         return disks;
     }

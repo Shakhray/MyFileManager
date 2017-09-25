@@ -8,6 +8,7 @@ import sh.exceptions.IsNotDirException;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -90,5 +91,15 @@ public class DirController {
 
     public void copy(File source, File dest) throws IOException {
         Files.copy(source.toPath(), dest.toPath());
+    }
+
+    public boolean createFolder(String path) throws FileAlreadyExistsException {
+        File newFolder = new File(path);
+        System.out.println("path in dirController : " + path);
+        if (!newFolder.exists()) {
+            return newFolder.mkdir();
+        } else {
+            throw new FileAlreadyExistsException(path);
+        }
     }
 }

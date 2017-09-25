@@ -12,11 +12,13 @@ import javafx.stage.Stage;
 import sh.exceptions.*;
 
 import java.io.File;
+import java.nio.file.FileAlreadyExistsException;
 
 /**
  * @author Sherhan
  */
 public class FileTreeController {
+    protected int index = 0;
     @FXML
     protected TableView<FileTableItem> fileTree;
     @FXML
@@ -28,6 +30,11 @@ public class FileTreeController {
     private GUICommander commander = new GUICommander();
     private Stage stage;
     private Message message = new Message(stage);
+
+    public FileTreeController() {
+        index = FileManagerGUI.INDEX;
+        FileManagerGUI.INDEX++;
+    }
 
     @FXML
     protected void initialize() {
@@ -62,6 +69,7 @@ public class FileTreeController {
     }
 
     private void handleMouseClickedToRow(MouseEvent event, TableRow<FileTableItem> row) {
+        System.out.println("index : " + index);
         if (event.getClickCount() == 2 && (!row.isEmpty())) {
             String itemName = row.getItem().getName().getValue();
             try {
@@ -131,5 +139,14 @@ public class FileTreeController {
 
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    public void createFolder(String folderName) {
+        try {
+            System.out.println(commander.getHomeDirectory().getAbsolutePath());
+            commander.createFolder(folderName);
+        } catch (FileAlreadyExistsException e) {
+            showMessage("Такая папка уже существует", e);
+        }
     }
 }

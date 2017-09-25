@@ -6,6 +6,7 @@ import sh.exceptions.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import java.util.List;
 
 /**
@@ -13,11 +14,18 @@ import java.util.List;
  */
 public class Commander {
     public static final String ROOT = "C:/";
-    private DirController dirController = new DirController();
-    private AppController appController = new AppController();
-    private File home = initHome();
+    private DirController dirController;
+    private AppController appController;
+    private File home;
+
+    public Commander() {
+        dirController = new DirController();
+        appController = new AppController();
+        home = initHome();
+    }
 
     private File initHome() {
+        System.out.println("init home is work");
         return new File(ROOT);
     }
 
@@ -27,6 +35,7 @@ public class Commander {
 
     public void cd(String arguments) throws FileNotFoundException, IsNotDirException, DiskNotFoundException, InvalidedLinkException {
         home = dirController.cd(home, arguments);
+        System.out.println("getHomePath in Commander : " + getHomePath());
     }
 
     public List<File> dir() {
@@ -93,7 +102,7 @@ public class Commander {
     }
 
     public boolean isApplication(String command) {
-        return command.length() > 4 && command.endsWith(".exe");
+        return command.endsWith(".exe");
     }
 
     public void copy(String source, String copyTo) throws IOException, DirNotFoundException, FileNotFoundException {
@@ -115,7 +124,13 @@ public class Commander {
         if (!new File(copyTo).isDirectory()) {
             throw new DirNotFoundException();
         } else {
-            return hasEndSlash(copyTo) ? new File(copyTo + fileName) : new File(copyTo + "\\" + fileName);
+            String copyPath = hasEndSlash(copyTo) ? copyTo + fileName : copyTo + "\\" + fileName;
+            return new File(copyPath);
         }
+    }
+
+    public void createFolder(String folderName) throws FileAlreadyExistsException {
+        System.out.println("getHomePath in Commander : " + getHomePath());
+        dirController.createFolder(getHomePath() + folderName);
     }
 }

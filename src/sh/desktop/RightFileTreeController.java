@@ -27,4 +27,10 @@ public class RightFileTreeController extends FileTreeController {
         this.fileIcon = super.fileIcon;
         this.buttonPane = super.buttonPane;
     }
+
+    @Override
+    public void createFolder(String folderName) {
+        System.out.println("right index : " + index);
+        super.createFolder(folderName);
+    }
 }
